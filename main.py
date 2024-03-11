@@ -66,7 +66,7 @@ def on_open(ws):
                     "activities": [
                         {
                             "type": 4,
-                            "state": custom_status,
+                            "state": alternate_status,
                             "name": "Custom Status",
                             "id": "custom",
                         }
@@ -76,6 +76,12 @@ def on_open(ws):
                 },
             }
             ws.send(json.dumps(cstatus_payload))
+            time.sleep(1)
+
+            # Send "discord.gg/permfruits" status
+            cstatus_payload["d"]["activities"][0]["state"] = custom_status
+            ws.send(json.dumps(cstatus_payload))
+            time.sleep(59)
 
     threading.Thread(target=update_status, daemon=True).start()
 
